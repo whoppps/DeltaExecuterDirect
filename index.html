@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta IOS</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        .install {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #6200ea;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .install:hover {
+            background-color: #3700b3;
+            transform: translateY(-2px);
+        }
+
+        .install:active {
+            transform: translateY(0);
+        }
+
+        /* Optional: Add some responsiveness */
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .install {
+                width: 100%;
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delta IOS</h1>
+        <a class="install" 
+           href="about:blank" 
+           onclick="event.preventDefault(); window.open('itms-services://?action=download-manifest&url=https://deltaios-executor.com/Install.plist');">
+           Direct Install
+        </a>
+    </div>
+</body>
+</html>
