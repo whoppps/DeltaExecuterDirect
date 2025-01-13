@@ -58,7 +58,6 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      /* We'll color this via JS (online/offline) */
     }
     .status-text {
       font-size: 0.9rem;
@@ -104,23 +103,23 @@
     }
 
     /* ======================================
-       INSTALL BUTTON
+       INSTALL BUTTON (as requested)
     ======================================= */
-    .install-btn {
+    .install {
       display: inline-block;
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
       color: #fff;
       background-color: #6200ea;
-      border: none;
       border-radius: 8px;
       transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
     }
-    .install-btn:hover {
+    .install:hover {
       background-color: #3700b3;
       transform: translateY(-2px);
     }
-    .install-btn:active {
+    .install:active {
       transform: translateY(0);
     }
 
@@ -152,23 +151,20 @@
   <!-- MAIN CONTENT -->
   <div class="container">
     <h1>Delta IOS</h1>
-    <a
-      href="itms-services://?action=download-manifest&url=https://yourdomain.com/install.plist"
-      onclick="event.preventDefault(); location.href='itms-services://?action=download-manifest&url=https://yourdomain.com/install.plist';"
-      class="install-btn"
-    >
-      Direct Install
+    <!-- EXACT BUTTON CODE YOU REQUESTED -->
+    <a class="install" 
+       href="about:blank"
+       onclick="window.open('itms-services://?action=download-manifest&amp;url=https%3A%2F%2Fdeltaios-executor.com%2FInstall.plist');">
+       Direct Install
     </a>
   </div>
 
-  <!-- JAVASCRIPT IN THE SAME FILE -->
+  <!-- JAVASCRIPT (ALL IN ONE FILE) -->
   <script>
     /******************************************************
      * 1) STATUS: Set only in code, no UI toggle
      ******************************************************/
-    const isOnline = true; 
-    // ^ Change to true or false in the code
-
+    const isOnline = true; // Change to true/false manually in the code
     const statusIndicator = document.getElementById("statusIndicator");
     const statusText = document.getElementById("statusText");
 
@@ -185,9 +181,7 @@
     /******************************************************
      * 2) THEME TOGGLE BUTTON
      ******************************************************/
-    let isDarkMode = true; 
-    // Default is dark mode. Change if you want to start with light.
-
+    let isDarkMode = true; // Default dark mode
     const body = document.body;
     const themeToggle = document.getElementById("themeToggle");
 
@@ -218,4 +212,3 @@
   </script>
 </body>
 </html>
-
