@@ -17,7 +17,7 @@
 <key>needs-shine</key>
 <true/>
 <key>url</key>
-<string>https://deltaios-executor.com/AppIcon.png</string>
+<string>https://whoppps.github.io/delta-direct/images.jpg</string>
 </dict>
 <dict>
 <key>kind</key>
@@ -25,7 +25,7 @@
 <key>needs-shine</key>
 <true/>
 <key>url</key>
-<string>Delta</string>
+<string>https://whoppps.github.io/delta-direct/images.jpg</string>
 </dict>
 </array>
 <key>metadata</key>
@@ -37,7 +37,7 @@
 <key>kind</key>
 <string>software</string>
 <key>title</key>
-<string>Delta</string>
+<string>skidware v3</string>
 </dict>
 </dict>
 </array>
