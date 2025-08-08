@@ -112,15 +112,51 @@
     footer a:hover { text-decoration: underline; }
 
     code { padding: 2px 6px; border-radius: 6px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); }
+  
+    /* ===== Custom additions: status box + image logo support ===== */
+    .logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; display: block; }
+
+    .status {
+      margin: 6px auto 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.12); /* emerald-400 tint */
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #d1fae5; /* emerald-100 */
+      font-weight: 600;
+      letter-spacing: .02em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .status .dot {
+      width: 10px; height: 10px; border-radius: 999px; background: #34d399;
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+    .logo img { display:block; }
+    .status { display:inline-flex; align-items:center; gap:10px; margin: 6px auto 2px; padding: 10px 14px; border-radius: 12px; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.35); color: #d1fae5; font-weight: 700; letter-spacing: .02em; }
+    .dot { width: 10px; height:10px; border-radius: 999px; background: #10b981; box-shadow: 0 0 0 6px rgba(16,185,129,.15); animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse { 0% { transform: scale(.9); opacity: .9 } 50% { transform: scale(1.15); opacity: 1 } 100% { transform: scale(.9); opacity: .9 } }
   </style>
 </head>
 <body>
   <div class="orbital" aria-hidden="true"></div>
   <main class="wrap">
     <section class="card" role="region" aria-labelledby="title">
-      <div class="logo" aria-hidden="true"><span>Δ</span></div>
+      <div class="logo" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAYAAABTh2LZAAAB9ElEQVR4nO3ZMW7bMBBF0WfYh+Jxkto0cE9iP5QY1oMUs3f2mE11sJOzE9TqL8k6GfiwXbD3cB+ZL2K+f7v1d8b8WgB3ZqgqQv0kq8G0m9l3q9hK1mCq9kz7oZbTzqkQ0gB4cYbPm8K8r+7Jv0j5m3tqGg3m7r0mKcQF2m1k8qQ0f4c4kE2m+0qR7Yv3cU0e9tE1Zq1w8m5r7g0g1cYQeC0h2V0m9o8pF0f9WE0kQy7nNw9w0sZJgH3k8zqLQmE6Xzqk9cPZqv1E8rQ0ZbKk3m3qk0f9aE0mQx7nJw/w0sYJgH3k8rqI4mE6b7qk9cPZIv1E8rQ0ZbKk3m3qk0f9aE0mQx7nJw/w0sYJgH3k8rqI4mE6b7qk9cPZIv1E8rQ0ZbKk3m3qk0f9aE0mQx7nJw/w0sYJgH3k8rqI4mE6b7qk9cPZIv1E8rQ0ZbKk3m3qk0f9aE0mQx7nJw/w0sYJgH3k8rqI4mE6b7qk9cPZIv1E8rQ0ZbKk3m3qk0f9aE0mQx7nJw/w0sYJgH3k8rqI4mE6b7qk9cPZIv1E8rQ0ZbKk3m3qk0f9aE0mQx7nJw/w0sYJgH3k8rqI4mE6b7qk9cPZIv1E8rQ0ZbKk3m3qk0f9aE0mQx7nJw/w0sYJgH3k8rqI4mE6b7qk9cPZIv1E8rQ0ZbKk3m3qk0f9aE0mQz/////wAAAP//AwA7qQm5p3w3nQAAAABJRU5ErkJggg==" alt="DeltaExecuterDirect logo" style="width:64px;height:64px;border-radius:14px;object-fit:cover;" /></div>
       <h1 id="title">DeltaExecuterDirect</h1>
       <p class="lead">A clean, single‑tap installer. If you're on iOS, tapping the button below will launch the <code>itms-services</code> installer.</p>
+
+      <div class="status" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span> Currently working</div>
+
+      <div class="status" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span>Currently working</span></div>
 
       <div class="actions">
         <!-- The anchor uses href="about:blank" and also triggers the iOS installer via onclick. Returning false prevents navigating away. -->
