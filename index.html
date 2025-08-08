@@ -1,214 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Delta IOS</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DeltaExecuterDirect</title>
+  <meta name="description" content="Install DeltaExecuterDirect via iOS itms-services with a single tap." />
+  <meta name="theme-color" content="#0ea5e9" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cdefs/%3E%3Ccircle cx='64' cy='64' r='60' fill='%230b1020'/%3E%3Cpath d='M18 94 L64 22 L110 94 Z' fill='%23256eff'/%3E%3Cpath d='M64 22 L110 94 L64 78 Z' fill='%237c3aed'/%3E%3C/svg%3E" />
   <style>
-    /* ======================================
-       GLOBAL RESET & BASIC STYLES
-    ======================================= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #0b1020;          /* deep navy */
+      --bg2: #0a0f1f;         /* slightly darker */
+      --text: #e5e7eb;        /* slate-200 */
+      --muted: #9ca3af;       /* gray-400 */
+      --ring: rgba(99, 102, 241, 0.5); /* indigo ring */
+      --grad-a: #7c3aed;      /* indigo-600 */
+      --grad-b: #06b6d4;      /* cyan-500 */
+      --accent: #60a5fa;      /* blue-400 */
     }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      transition: background-color 0.3s ease, color 0.3s ease;
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    a {
-      text-decoration: none;
-    }
-
-    /* ======================================
-       DARK THEME & LIGHT THEME CLASSES
-    ======================================= */
-    /* Default (dark mode) */
-    body.dark {
-      background-color: #121212;
-      color: #e0e0e0;
-    }
-    /* Light mode */
-    body.light {
-      background-color: #f4f4f4;
-      color: #333;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(124, 58, 237, .20), transparent 60%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(6, 182, 212, .18), transparent 60%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x: hidden;
     }
 
-    /* ======================================
-       HEADER & STATUS
-    ======================================= */
-    header {
-      width: 100%;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .orbital {
+      position: fixed;
+      inset: -40vmax; /* bleed off-screen */
+      background: conic-gradient(from 0deg, rgba(124,58,237,.25), rgba(6,182,212,.2), rgba(124,58,237,.25));
+      filter: blur(120px) saturate(140%);
+      opacity: .35;
+      animation: spin 30s linear infinite;
+      pointer-events: none;
+      z-index: 0;
     }
-    .status-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .status-indicator {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .status-text {
-      font-size: 0.9rem;
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .wrap {
+      position: relative;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: clamp(16px, 4vw, 48px);
+      isolation: isolate; /* keep blur behind */
     }
 
-    /* ======================================
-       THEME TOGGLE BUTTON
-    ======================================= */
-    #themeToggle {
-      cursor: pointer;
-      font-size: 1.5rem;
-      background: none;
-      border: none;
-      transition: transform 0.2s ease;
-      color: inherit; /* Inherit text color from body */
-    }
-    #themeToggle:hover {
-      transform: scale(1.1);
-    }
-
-    /* ======================================
-       MAIN CONTAINER
-    ======================================= */
-    .container {
-      max-width: 400px;
-      width: 90%;
-      margin: 2rem auto;
-      padding: 2rem;
-      border-radius: 10px;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    /* Dark container vs. light container */
-    body.dark .container {
-      background-color: #1e1e1e;
-    }
-    body.light .container {
-      background-color: #ffffff;
-    }
-
-    h1 {
-      margin-bottom: 1.5rem;
-    }
-
-    /* ======================================
-       INSTALL BUTTON (as requested)
-    ======================================= */
-    .install {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      color: #fff;
-      background-color: #6200ea;
-      border-radius: 8px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+    .card {
+      width: min(880px, 94vw);
+      padding: clamp(24px, 5vw, 48px);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(14px) saturate(120%);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
       text-align: center;
     }
-    .install:hover {
-      background-color: #3700b3;
-      transform: translateY(-2px);
-    }
-    .install:active {
-      transform: translateY(0);
-    }
 
-    /* ======================================
-       RESPONSIVENESS
-    ======================================= */
-    @media (max-width: 500px) {
-      header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-      }
-      h1 {
-        font-size: 1.8rem;
-      }
+    .logo {
+      width: 72px; height: 72px; margin-inline: auto; border-radius: 18px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 40%),
+                  linear-gradient(135deg, #111827, #0b1020);
+      display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
+    .logo span { font-size: 40px; font-weight: 800; letter-spacing: .02em; }
+
+    h1 { font-size: clamp(28px, 5vw, 44px); margin: 18px 0 10px; letter-spacing: .02em; }
+    .lead { margin: 0 auto 26px; max-width: 60ch; color: var(--muted); font-size: clamp(14px, 2.5vw, 18px); line-height: 1.6; }
+
+    .actions { margin-top: 18px; display: grid; gap: 12px; justify-content: center; }
+
+    .btn-install {
+      --br: 999px;
+      position: relative;
+      display: inline-grid; place-items: center;
+      padding: 14px 28px;
+      border-radius: var(--br);
+      font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none; color: white;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      box-shadow: 0 12px 24px rgba(6,182,212,.25), 0 6px 12px rgba(124,58,237,.25);
+      outline: none; border: 0;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      overflow: hidden;
+    }
+    .btn-install:hover { transform: translateY(-1px); box-shadow: 0 16px 28px rgba(6,182,212,.28), 0 8px 16px rgba(124,58,237,.28); }
+    .btn-install:active { transform: translateY(0); filter: brightness(.98); }
+
+    .shine {
+      position: absolute; inset: 0 auto 0 -40%; width: 40%;
+      transform: skewX(-20deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+      animation: sweep 2.4s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes sweep { to { inset: 0 -40% 0 auto; } }
+
+    .hint { margin-top: 10px; font-size: 13px; color: var(--muted); }
+
+    footer { margin-top: 26px; font-size: 12px; color: var(--muted); }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    code { padding: 2px 6px; border-radius: 6px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); }
   </style>
 </head>
-<body class="dark">
-  <!-- HEADER: STATUS + THEME TOGGLE -->
-  <header>
-    <div class="status-wrap">
-      <div class="status-indicator" id="statusIndicator"></div>
-      <span class="status-text" id="statusText">Checking...</span>
+<body>
+  <div class="orbital" aria-hidden="true"></div>
+  <main class="wrap">
+    <section class="card" role="region" aria-labelledby="title">
+      <div class="logo" aria-hidden="true"><span>Δ</span></div>
+      <h1 id="title">DeltaExecuterDirect</h1>
+      <p class="lead">A clean, single‑tap installer. If you're on iOS, tapping the button below will launch the <code>itms-services</code> installer.</p>
+
+      <div class="actions">
+        <!-- The anchor uses href="about:blank" and also triggers the iOS installer via onclick. Returning false prevents navigating away. -->
+        <a
+          class="btn-install"
+          href="about:blank"
+          onclick="window.open('itms-services://?action=download-manifest&amp;url=https://whoppps.github.io/DeltaExecuterDirect/install.plist'); return false;"
+          rel="noopener"
+          >
+          Install
+          <span class="shine" aria-hidden="true"></span>
+        </a>
+        <div class="hint">If nothing happens, open this page in Safari on your iPhone/iPad.</div>
+      </div>
+
+      <footer>
+        © <span id="year"></span> DeltaExecuterDirect · Built for a smooth, modern install flow
+      </footer>
+    </section>
+  </main>
+
+  <noscript>
+    <style> .actions { display:none } </style>
+    <div style="max-width:720px;margin:20px auto;padding:12px 16px;border-radius:12px;background:#111827;color:#e5e7eb;border:1px solid rgba(255,255,255,.1)">
+      JavaScript is required for the install button. Enable it, then reload this page.
     </div>
-    <button id="themeToggle" aria-label="Toggle Dark/Light Mode">🌙</button>
-  </header>
+  </noscript>
 
-  <!-- MAIN CONTENT -->
-  <div class="container">
-    <h1>Delta IOS</h1>
-    <!-- EXACT BUTTON CODE YOU REQUESTED -->
-    <a class="install" 
-       href="about:blank"
-       onclick="window.open('itms-services://?action=download-manifest&amp;url=https://whoppps.github.io/DeltaExecuterDirect/install.plist');">
-       Direct Install
-    </a>
-  </div>
-
-  <!-- JAVASCRIPT (ALL IN ONE FILE) -->
   <script>
-    /******************************************************
-     * 1) STATUS: Set only in code, no UI toggle
-     ******************************************************/
-    const isOnline = true; // Change to true/false manually in the code
-    const statusIndicator = document.getElementById("statusIndicator");
-    const statusText = document.getElementById("statusText");
-
-    if (isOnline) {
-      // ONLINE
-      statusIndicator.style.backgroundColor = "#28a745"; // green
-      statusText.textContent = "Online";
-    } else {
-      // OFFLINE
-      statusIndicator.style.backgroundColor = "#dc3545"; // red
-      statusText.textContent = "Offline";
-    }
-
-    /******************************************************
-     * 2) THEME TOGGLE BUTTON
-     ******************************************************/
-    let isDarkMode = true; // Default dark mode
-    const body = document.body;
-    const themeToggle = document.getElementById("themeToggle");
-
-    // Update the button icon based on current mode
-    function updateThemeIcon() {
-      if (isDarkMode) {
-        themeToggle.textContent = "🌙"; // Moon icon for dark
-      } else {
-        themeToggle.textContent = "☀️"; // Sun icon for light
-      }
-    }
-
-    // Toggle theme on button click
-    themeToggle.addEventListener("click", () => {
-      isDarkMode = !isDarkMode;
-      if (isDarkMode) {
-        body.classList.remove("light");
-        body.classList.add("dark");
-      } else {
-        body.classList.remove("dark");
-        body.classList.add("light");
-      }
-      updateThemeIcon();
-    });
-
-    // Initialize icon on page load
-    updateThemeIcon();
+    // Update footer year automatically
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
